@@ -3,67 +3,31 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-	public Vector3 torque = new Vector3(0f, 100f, 0f);
-	public Rigidbody[] leftWheels;
-	public Rigidbody[] rightWheels;
-	public Rigidbody turret;
+	TankController tankController;
 	
 	void Start() {
+		tankController = this.GetComponent<TankController>();
 	}
 	
 	
 	void Update () {
 	
 		if (Input.GetKey (KeyCode.W)) {
-			this.moveForward();
+			tankController.moveForward();
 		}
 		if (Input.GetKey (KeyCode.S)) {
-			this.moveBackward();
+			tankController.moveBackward();
 		}
 		if (Input.GetKey (KeyCode.A)) {
-			this.turnLeft();
+			tankController.turnLeft();
 		}
 		if (Input.GetKey (KeyCode.D)) {
-			this.turnRight();
+			tankController.turnRight();
 		}
 		
 		
 	}
 	
-	private void moveForward() {
-		foreach (Rigidbody rb in leftWheels){
-			rb.AddRelativeTorque(-torque);
-		}
-		foreach (Rigidbody rb in rightWheels){
-			rb.AddRelativeTorque(-torque);
-		}
-	}
 	
-	public void moveBackward(){
-		foreach (Rigidbody rb in leftWheels){
-			rb.AddRelativeTorque(torque);
-		}
-		foreach (Rigidbody rb in rightWheels){
-			rb.AddRelativeTorque(torque);
-		}
-	}
-	
-	public void turnRight(){
-		foreach (Rigidbody rb in leftWheels){
-			rb.AddRelativeTorque(-torque);
-		}
-		foreach (Rigidbody rb in rightWheels){
-			rb.AddRelativeTorque(torque);
-		}
-	}
-	
-	public void turnLeft(){
-		foreach (Rigidbody rb in leftWheels){
-			rb.AddRelativeTorque(torque);
-		}
-		foreach (Rigidbody rb in rightWheels){
-			rb.AddRelativeTorque(-torque);
-		}
-	}
 	
 }
