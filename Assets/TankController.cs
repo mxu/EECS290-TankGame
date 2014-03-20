@@ -32,11 +32,16 @@ public class TankController : MonoBehaviour {
 	//ToDo: Make the gun turret lerp and shit and make the gun not turn outside of the bounds.
 	private void moveGunTowards(Vector3 direction){
 		Vector3 rotation = new Vector3 (0f, direction.x, 90f);
-		Vector3 pitch = new Vector3(90f, direction.y, 0f);
-		Vector3 startPitch = new Vector3 (0f, gun.rotation.y, 0f);
-		Vector3 startRotation = new Vector3 (0f, gunRotationPoint.rotation.y, 0f);
-		gun.localRotation = Quaternion.Euler(pitch);
-		gunRotationPoint.rotation = Quaternion.Euler(rotation);
+		float newY = direction.y;
+		if (newY > gunPitchHighBound)
+			newY = gunPitchHighBound;
+		if (newY < gunPitchLowBound)
+			newY = gunPitchLowBound;
+		Vector3 pitch = new Vector3(90f, newY, 0f);
+		Vector3 currentPitch = new Vector3 (90f, gun.localRotation.y, 0f);
+		Vector3 currentRotation = new Vector3 (0f, gunRotationPoint.rotation.y, 90f);
+		gun.localRotation = Quaternion.Euler(currentPitch);
+		gunRotationPoint.rotation = Quaternion.Euler(currentRotation);
 				
 	
 		/*This bit is a little weird. The way I made the gun rotate was by using 
@@ -44,10 +49,10 @@ public class TankController : MonoBehaviour {
 		that it is always on the correct spot on the outside of the tank. I am
 		sure there are better ways to do this but none that worked for me. */
 		
-		float turretRadius = turret.transform.localScale.x / 2f;
+		float turretRadius = 2f * turret.transform.localScale.x / 3f;
 		float gunLength = gun.localScale.y;
-		float theta = ((gun.rotation.eulerAngles - this.transform.rotation.eulerAngles).y - 90f) * Mathf.Deg2Rad;
-		float phi = ((gun.rotation.eulerAngles- this.transform.rotation.eulerAngles).z) * Mathf.Deg2Rad;
+		float theta = (gun.rotation.eulerAngles.y - 90f) * Mathf.Deg2Rad;
+		float phi = (gun.rotation.eulerAngles.z) * Mathf.Deg2Rad;
 		gunRotationPoint.position = turret.transform.position;
 		gun.position = turret.transform.position + 
 			new Vector3(
