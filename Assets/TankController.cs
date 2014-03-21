@@ -39,7 +39,7 @@ public class TankController : MonoBehaviour {
 		GameObject datBullet = (GameObject) GameObject.Instantiate(bullet);
 		datBullet.transform.position = shootSpot.position;
 		datBullet.transform.rotation = Quaternion.Euler(shootSpot.rotation.eulerAngles + new Vector3(90f, 0f, 0f));
-		datBullet.rigidbody.velocity = Vector3.Cross(datBullet.transform.forward, new Vector3(90f, 0f, 0f)) * shootSpeed;
+		datBullet.rigidbody.velocity = Vector3.Cross(datBullet.transform.forward, new Vector3(1f, 0f, 0f)) * shootSpeed;
 		
 	}
 	

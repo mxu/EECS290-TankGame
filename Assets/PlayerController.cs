@@ -4,13 +4,18 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
 	TankController tankController;
+	GameObject cameraRotater;
+	Vector3 currentCameraRotation = new Vector3(0f, 0f, 0f);
 	
 	void Start() {
 		tankController = this.GetComponent<TankController>();
+		cameraRotater = GameObject.Find ("CameraRotater");
 	}
 	
 	
 	void Update () {
+	
+		this.rotateCamera(Input.GetAxis("Horizontal"));
 	
 		if (Input.GetKey (KeyCode.W)) {
 			tankController.moveForward();
@@ -27,10 +32,12 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Space)){
 			tankController.shoot();
 		}
-		
-		
 	}
 	
-	
-	
+	// This helper method changes the camera position to follow with mouse input
+	public void rotateCamera (float relativeMS) {
+		Vector3 targetRotation = new Vector3(0f, relativeMS, 0f);
+		cameraRotater.transform.localRotation = Quaternion.Euler(targetRotation + currentCameraRotation);
+		currentCameraRotation = targetRotation + currentCameraRotation;
+	}
 }
