@@ -24,6 +24,9 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKey (KeyCode.D)) {
 			tankController.turnRight();
 		}
+		if (Input.GetKeyDown (KeyCode.Space)){
+			tankController.shoot();
+		}
 		
 		
 	}
