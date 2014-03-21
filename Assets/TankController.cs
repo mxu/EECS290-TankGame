@@ -28,7 +28,7 @@ public class TankController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		this.moveGunTowards(turnTo);
+		//this.moveGunTowards(turnTo);
 		
 		
 		
@@ -39,27 +39,23 @@ public class TankController : MonoBehaviour {
 		GameObject datBullet = (GameObject) GameObject.Instantiate(bullet);
 		datBullet.transform.position = shootSpot.position;
 		datBullet.transform.rotation = Quaternion.Euler(shootSpot.rotation.eulerAngles + new Vector3(90f, 0f, 0f));
-		datBullet.rigidbody.velocity = Vector3.Cross(datBullet.transform.forward, new Vector3(1f, 0f, 0f)) * shootSpeed;
+		datBullet.rigidbody.velocity = shootSpot.forward * shootSpeed;
 		
 	}
 	
 	//ToDo: Make the gun turret lerp and shit and make the gun not turn outside of the bounds.
-	private void moveGunTowards(Vector3 direction){
-		float pitchOfset = gunRotationPoint.rotation.eulerAngles.y - gun.localRotation.eulerAngles.x;
-		Debug.Log(pitchOfset);
-		
-		
-		Vector3 rotation = new Vector3 (0f, direction.x, 90f);
-		float newY = direction.y;
-		if (newY > gunPitchHighBound)
-			newY = gunPitchHighBound;
-		if (newY < gunPitchLowBound)
-			newY = gunPitchLowBound;
-		Vector3 pitch = new Vector3(90f, newY, 0f);
+	public void pointGunAt(Vector3 direction){
+		Vector3 rotation = new Vector3 (0f, direction.y, 90f);
+		float newX = direction.x;
+		if (newX > gunPitchHighBound)
+			newX = gunPitchHighBound;
+		if (newX < gunPitchLowBound)
+			newX = gunPitchLowBound;
+		Vector3 pitch = new Vector3(90f, newX, 0f);
 		Vector3 currentPitch = new Vector3 (90f, gun.localRotation.y, 0f);
 		Vector3 currentRotation = new Vector3 (0f, gunRotationPoint.rotation.y, 90f);
 		gun.localRotation = Quaternion.Euler(pitch);
-		gunRotationPoint.rotation = Quaternion.Euler(rotation);
+		gunRotationPoint.localRotation = Quaternion.Euler(rotation);
 				
 	
 		/*This bit is a little weird. The way I made the gun rotate was by using 

@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Space)){
 			tankController.shoot();
 		}
+		
+		tankController.pointGunAt(currentCameraRotation);
 	}
 	
 	// This helper method changes the camera position to follow with mouse input
