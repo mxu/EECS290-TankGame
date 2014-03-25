@@ -18,8 +18,6 @@ public class TankController : MonoBehaviour {
 	public Vector3 turnTo;
 	public GameObject bullet;
 	
-	
-	
 	// Use this for initialization
 	void Start () {
 		
@@ -33,7 +31,6 @@ public class TankController : MonoBehaviour {
 		
 		
 	}
-	
 	
 	public void shoot(){ 
 		GameObject datBullet = (GameObject) GameObject.Instantiate(bullet);

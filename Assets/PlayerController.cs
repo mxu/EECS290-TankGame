@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour {
 	
 		if (Input.GetKey (KeyCode.W)) {
 			tankController.moveForward();
-		}
+		}	
 		if (Input.GetKey (KeyCode.S)) {
 			tankController.moveBackward();
 		}
