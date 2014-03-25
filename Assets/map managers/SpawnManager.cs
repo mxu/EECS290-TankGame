@@ -15,18 +15,27 @@ public class SpawnManager : MonoBehaviour {
 
 	//Tank prefab
 	public GameObject tank;
+	public GameObject allyTank;
+	public GameObject enemyTank;
 
 
 	// Use this for initialization
 	void Start () {
+		//Create the main player
+		GameObject.Instantiate(tank, new Vector3(cornerSpawn.transform.position.x, 2f, cornerSpawn.transform.position.z), Quaternion.Euler(new Vector3(0, -54, 0)));
 
-		//Array created for easy organizing and calling of spawn points.
-		GameObject[] arrayOfSpawnPoints= {cornerSpawn, cornerSpawnLeft, cornerSpawnRight};
-		GameObject[] arrayOfEnemySpawnPoints = {enemyCornerSpawn, enemyCornerSpawnRight, enemyCornerSpawnLeft};
+		//Create the allies.
+		GameObject[] allySpawn = new GameObject[]{cornerSpawnRight, cornerSpawnLeft};
+		for(int index = 0; index < 2; index++){
+			GameObject.Instantiate(allyTank, new Vector3(allySpawn[index].transform.position.x, 2f, allySpawn[index].transform.position.z), Quaternion.Euler(new Vector3(0, -50,0)));
+		}
 
-		GameObject.Instantiate(tank, new Vector3(cornerSpawn.transform.position.x, 2f, cornerSpawn.transform.position.z), Quaternion.identity);
+		//Spawn enemies.
+		GameObject[] enemySpawn = new GameObject[]{enemyCornerSpawn, enemyCornerSpawnRight, enemyCornerSpawnLeft};
+		for(int index = 0; index < 3; index++){
+			GameObject.Instantiate(enemyTank, new Vector3(enemySpawn[index].transform.position.x, 2f, enemySpawn[index].transform.position.z), Quaternion.Euler(new Vector3(0,140,0)));
+		}
 
-		//Do this again, but for tanks that aren't the player, meaning we have to make sure they don't have a camera attached to them.
 		
 	}
 	
