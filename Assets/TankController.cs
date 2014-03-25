@@ -15,8 +15,10 @@ public class TankController : MonoBehaviour {
 	public float gunPitchHighBound;
 	public float gunTurnSpeed;
 	public float shootSpeed;
+	public float breakForce;
 	public Vector3 turnTo;
 	public GameObject bullet;
+	public bool broken = false;
 	
 	
 	
@@ -27,6 +29,8 @@ public class TankController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (broken) 
+			BreakYoShit();
 		
 		//this.moveGunTowards(turnTo);
 		
@@ -77,6 +81,26 @@ public class TankController : MonoBehaviour {
 				turretRadius * Mathf.Cos(phi),  
 				turretRadius * Mathf.Sin (phi) * Mathf.Cos(theta)
 				);
+	}
+	
+	public void BreakYoShit(){
+		broken = false;
+		
+		foreach (Object joint in gameObject.GetComponentsInChildren<FixedJoint>()){
+			Destroy (joint);
+		}
+		foreach (Object joint in gameObject.GetComponentsInChildren<HingeJoint>()){
+			Destroy (joint);
+		}
+		Destroy (turret.GetComponent<FixedJoint>());
+		foreach (Collider col in gameObject.GetComponentsInChildren<Collider>()){
+			col.isTrigger = false;
+		}
+		turret.collider.isTrigger = false;
+		turret.rigidbody.AddForce(-transform.forward * breakForce);
+		GameObject.Find ("Main Camera").transform.parent = null;
+			
+	
 	}
 	
 	
