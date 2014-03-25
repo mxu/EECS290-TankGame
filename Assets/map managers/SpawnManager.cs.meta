@@ -2,7 +2,14 @@ fileFormatVersion: 2
 guid: 4ec6629135eb14f7daf6f2d8e39290fe
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - cornerSpawn: {instanceID: 0}
+  - cornerSpawnRight: {instanceID: 0}
+  - cornerSpawnLeft: {instanceID: 0}
+  - enemyCornerSpawn: {instanceID: 0}
+  - enemyCornerSpawnRight: {instanceID: 0}
+  - enemyCornerSpawnLeft: {instanceID: 0}
+  - tank: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
