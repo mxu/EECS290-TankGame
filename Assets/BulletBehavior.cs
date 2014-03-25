@@ -24,6 +24,14 @@ public class BulletBehavior : MonoBehaviour {
 		Destroy(this.gameObject);
 	}
 	
+	public void OnTriggerEnter(){
+		this.Explode();
+		emit.transform.parent = null;
+		emit.emissionRate = 0;
+		emit.GetComponent<TimedObjectDestroy>().initiated = true;
+		Destroy(this.gameObject);
+	}
+	
 	public void Explode(){
 		GameObject boom = (GameObject) GameObject.Instantiate(explosion);
 		boom.transform.position = this.transform.position;

@@ -18,7 +18,8 @@ public class TankController : MonoBehaviour {
 	public float breakForce;
 	public Vector3 turnTo;
 	public GameObject bullet;
-	public bool broken = false;
+	
+	public int health = 3;
 	
 	
 	
@@ -29,15 +30,15 @@ public class TankController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (broken) 
+		if (health == 0)
 			BreakYoShit();
-		
-		//this.moveGunTowards(turnTo);
-		
-		
-		
 	}
 	
+	void OnTriggerEnter(Collider col) {
+		if (col.tag.Equals("bullet")) {
+			health--;
+		}
+	}
 	
 	public void shoot(){ 
 		GameObject datBullet = (GameObject) GameObject.Instantiate(bullet);
@@ -84,7 +85,6 @@ public class TankController : MonoBehaviour {
 	}
 	
 	public void BreakYoShit(){
-		broken = false;
 		
 		foreach (Object joint in gameObject.GetComponentsInChildren<FixedJoint>()){
 			Destroy (joint);
@@ -98,7 +98,8 @@ public class TankController : MonoBehaviour {
 		}
 		turret.collider.isTrigger = false;
 		turret.rigidbody.AddForce(-transform.forward * breakForce);
-		GameObject.Find ("Main Camera").transform.parent = null;
+		if (this.transform.parent.gameObject.Equals(GameObject.Find("Player1"))) 
+			GameObject.Find ("Main Camera").transform.parent = null;
 			
 	
 	}

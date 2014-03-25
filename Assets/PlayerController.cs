@@ -4,12 +4,11 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
 	TankController tankController;
-	GameObject cameraRotater;
+	public GameObject cameraRotater;
 	Vector3 currentCameraRotation = new Vector3(0f, 0f, 0f);
 	
 	void Start() {
 		tankController = this.GetComponent<TankController>();
-		cameraRotater = GameObject.Find ("CameraRotater");
 	}
 	
 	
