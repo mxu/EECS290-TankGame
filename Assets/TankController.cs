@@ -82,41 +82,39 @@ public class TankController : MonoBehaviour {
 	Moving forward and backwards is just done by applying the appropriate torque
 	to the wheels, and turning is done by applying opposite torque to the left
 	and right wheels appropriately */
-	
+	public void moveLeftForward() {
+        foreach(Rigidbody rb in leftWheels) rb.AddRelativeTorque(-torque);
+    }
+
+    public void moveRightForward() {
+        foreach(Rigidbody rb in rightWheels) rb.AddRelativeTorque(-torque);
+    }
+
+    public void moveLeftBack() {
+        foreach(Rigidbody rb in leftWheels) rb.AddRelativeTorque(torque);
+    }
+
+    public void moveRightBack() {
+        foreach(Rigidbody rb in rightWheels) rb.AddRelativeTorque(torque);
+    }
 	
 	public void moveForward() {
-		foreach (Rigidbody rb in leftWheels){
-			rb.AddRelativeTorque(-torque);
-		}
-		foreach (Rigidbody rb in rightWheels){
-			rb.AddRelativeTorque(-torque);
-		}
+        moveLeftForward();
+        moveRightForward();
 	}
 	
 	public void moveBackward(){
-		foreach (Rigidbody rb in leftWheels){
-			rb.AddRelativeTorque(torque);
-		}
-		foreach (Rigidbody rb in rightWheels){
-			rb.AddRelativeTorque(torque);
-		}
+        moveLeftBack();
+        moveRightBack();
 	}
 	
 	public void turnRight(){
-		foreach (Rigidbody rb in leftWheels){
-			rb.AddRelativeTorque(-torque);
-		}
-		foreach (Rigidbody rb in rightWheels){
-			rb.AddRelativeTorque(torque);
-		}
+        moveLeftBack();
+        moveRightForward();
 	}
 	
 	public void turnLeft(){
-		foreach (Rigidbody rb in leftWheels){
-			rb.AddRelativeTorque(torque);
-		}
-		foreach (Rigidbody rb in rightWheels){
-			rb.AddRelativeTorque(-torque);
-		}
+        moveLeftForward();
+        moveRightBack();
 	}
 }

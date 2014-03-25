@@ -14,24 +14,20 @@ public class PlayerController : MonoBehaviour {
 	
 	
 	void Update () {
-	
 		this.rotateCamera(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 	
-		if (Input.GetKey (KeyCode.W)) {
-			tankController.moveForward();
-		}	
-		if (Input.GetKey (KeyCode.S)) {
-			tankController.moveBackward();
-		}
-		if (Input.GetKey (KeyCode.A)) {
-			tankController.turnLeft();
-		}
-		if (Input.GetKey (KeyCode.D)) {
-			tankController.turnRight();
-		}
-		if (Input.GetKeyDown (KeyCode.Space)){
+		if (Input.GetKey (KeyCode.Q))
+			tankController.moveLeftForward();
+        else if (Input.GetKey (KeyCode.A))
+            tankController.moveLeftBack();
+
+		if (Input.GetKey (KeyCode.W))
+			tankController.moveRightForward();
+		else if (Input.GetKey (KeyCode.S))
+			tankController.moveRightBack();
+
+		if (Input.GetKeyDown (KeyCode.Space))
 			tankController.shoot();
-		}
 		
 		tankController.pointGunAt(new Vector3(-currentCameraRotation.x + 55, currentCameraRotation.y, 0f));
 	}
