@@ -14,7 +14,9 @@ public class EnemyController : MonoBehaviour {
 
     private float moveTime = 0f;
     private float reloadTime = 0f;
+	private float distance = 0f;
     private MoveState movement = MoveState.forward;
+	private GameObject[] targets;
 
     public float aggroRadius = 20f;
     public float attackAngle = 4f;
@@ -25,14 +27,30 @@ public class EnemyController : MonoBehaviour {
     
 	// Use this for initialization
 	void Start() {
-		player = GameObject.Find("Player Tank");
 		tankController = this.GetComponent<TankController>();
 	}
 	
 	// Update is called once per frame
 	void Update() {
-        var d = (player.transform.position - this.transform.position).magnitude;
-        if(d < aggroRadius) {
+		if (this.gameObject.tag.Equals ("enemy")){
+			targets = GameObject.FindGameObjectsWithTag("Player");
+		}
+		else{
+			targets = GameObject.FindGameObjectsWithTag("enemy");
+		}
+		if (targets.Length > 0){
+			distance = Vector3.Distance (targets[0].transform.position, this.gameObject.transform.position);
+			player = targets[0];
+		}
+		foreach(GameObject target in targets){
+			if (Vector3.Distance(target.transform.position, this.transform.position) < distance){
+				player = target;
+				distance = Vector3.Distance(target.transform.position, this.transform.position);
+			}
+		}
+
+        //distance = (player.transform.position - this.transform.position).magnitude;
+        if(distance < aggroRadius) {
             var a = Quaternion.LookRotation(player.transform.position - this.transform.position).eulerAngles;
             var b = this.transform.eulerAngles;
             var rd = (a - b).y;
